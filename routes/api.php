@@ -1,6 +1,6 @@
 <?php
 
-use Illuminate\Http\Request;
+use App\Http\Controllers\Auth\OAuthController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,6 +14,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::withoutMiddleware('auth:api')->prefix('auth')->group(function () {
+    Route::post('/register', [OAuthController::class, 'register']);
+    Route::post('/login', [OAuthController::class, 'login']);
 });
+
+Route::get('/logout', [OAuthController::class, 'logout']);
+
+Route::any('{segment}', function () {
+    return response('Not Found', 404);
+})->where('segment', '.*');
