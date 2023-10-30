@@ -4,10 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-use Laravel\Sanctum\HasApiTokens;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
 {
@@ -46,12 +45,6 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
-    /**
-     * @return HasMany
-     */
-    public function tests(): HasMany
-    {
-        return $this->hasMany(Test::class, 'manager_id');
-    }
+
 
 }
