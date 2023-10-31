@@ -17,7 +17,6 @@ class AuthService implements AuthTokenGenerator
     public function generateTokens(array $data, string $type): ClientResponse
     {
         $data = array_merge($data, $this->getClientData(), ['grant_type' => $type, 'scope' => '']);
-//        dd($data, config('app.url').'/oauth/token');
         $response = Http::asForm()->post(config('app.url').'oauth/token', $data);
         return $response;
     }

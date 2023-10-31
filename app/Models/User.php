@@ -65,7 +65,7 @@ class User extends Authenticatable
      */
     public function tariff(): HasOne
     {
-        return $this->hasOne(Tariff::class);
+        return $this->hasOne(Tariff::class, 'tariff_id');
     }
 
     /**
