@@ -24,7 +24,9 @@ class User extends Authenticatable
         'last_name',
         'email',
         'password',
-        'email_verified_at'
+        'email_verified_at',
+        'tariff_expire_date',
+        'available_posts'
     ];
 
     /**
@@ -47,6 +49,9 @@ class User extends Authenticatable
         'password' => 'hashed',
     ];
 
+    /**
+     * @return Attribute
+     */
     protected function fullName(): Attribute
     {
         return Attribute::make(

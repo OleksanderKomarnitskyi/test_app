@@ -14,6 +14,8 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('tariff_id')->nullable();
+            $table->timestamp('tariff_expire_date')->nullable();
+            $table->integer('available_posts')->default(0);
             $table->string('first_name');
             $table->string('last_name')->nullable();
             $table->string('email')->unique();

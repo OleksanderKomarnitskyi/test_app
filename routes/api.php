@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Auth\OAuthController;
+use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -20,6 +21,10 @@ Route::withoutMiddleware('auth:api')->prefix('auth')->group(function () {
 });
 
 Route::get('/logout', [OAuthController::class, 'logout']);
+
+Route::get('/posts', [PostController::class, 'index']);
+Route::post('/post', [PostController::class, 'store']);
+Route::put('/post-update-status/{post}', [PostController::class, 'updateStatus']);
 
 Route::any('{segment}', function () {
     return response('Not Found', 404);
