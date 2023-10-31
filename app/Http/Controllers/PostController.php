@@ -72,6 +72,22 @@ class PostController extends Controller
     public function updateStatus(UpdatePostStatusRequest $request, Post $post): JsonResponse
     {
         $data = $request->validated();
+        $user = auth('api')->user();
+
+        if ($data['status'] == Statuses::Active->value) {
+
+            if (!$user->tariff_id) {
+                return response()->json(['message' => "Please buy a tariff plan"], 403);
+            }
+
+            if ($user->available_posts < 1) {
+                return response()->json(['message' => "Please buy a tariff plan"], 403);
+            }
+
+            $user->update(['available_posts' => $user->available_posts - 1 ]);
+
+        }
+
         $result = $this->postService->updateStatus($post, $data);
         $post->refresh();
 
