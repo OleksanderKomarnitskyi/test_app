@@ -2,7 +2,9 @@
 
 namespace App\Services;
 
+use App\Enums\Statuses;
 use App\Models\Post;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Support\Facades\DB;
 
@@ -42,6 +44,10 @@ final  class PostService extends MySqlService
     {
         DB::beginTransaction();
         try {
+
+            if ($data['status'] == Statuses::Active->value) {
+                $data['publish_date'] = Carbon::now()->format('Y-m-d H:i:s');
+            }
 
             $post = $post->update($data);
 

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Enums\Statuses;
+use App\Filters\PostQueryFilter;
 use App\Http\Requests\Post\StorePostRequest;
 use App\Http\Requests\Post\UpdatePostStatusRequest;
 use App\Http\Resources\PostResource;
@@ -37,7 +38,11 @@ class PostController extends Controller
      */
     public function index(Request $request): AnonymousResourceCollection
     {
-        $posts = Post::with('author')->get();
+        $postQuery = Post::with('author')->where('status', Statuses::Active->value);
+
+        $postQuery = PostQueryFilter::applyFilter($postQuery, $request);
+
+        $posts = $postQuery->paginate(10)->withQueryString();
 
         return PostResource::collection($posts);
     }
@@ -89,7 +94,7 @@ class PostController extends Controller
         }
 
         $result = $this->postService->updateStatus($post, $data);
-        $post->refresh();
+
 
         if($result) {
             if ($post->status == Statuses::Active->value) {

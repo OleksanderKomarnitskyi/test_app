@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('status');
             $table->string('title');
             $table->text('description')->nullable();
+            $table->date('publish_date')->nullable();
             $table->timestamps();
 
             $table->foreign('user_id')

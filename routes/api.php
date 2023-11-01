@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\OAuthController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\TariffController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,6 +26,8 @@ Route::get('/logout', [OAuthController::class, 'logout']);
 Route::get('/posts', [PostController::class, 'index']);
 Route::post('/post', [PostController::class, 'store']);
 Route::put('/post-update-status/{post}', [PostController::class, 'updateStatus']);
+
+Route::get('/tariff', [TariffController::class, 'index']);
 
 Route::post('/buy-tariff/{tariff}', [PaymentController::class, 'buyTariff']);
 

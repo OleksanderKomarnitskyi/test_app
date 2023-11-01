@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
         Tariff::factory()->count(10)->create();
 
         $this->call([
-            UserSeeder::class
+            UserSeeder::class,
+            PostSeeder::class
         ]);
 
     }

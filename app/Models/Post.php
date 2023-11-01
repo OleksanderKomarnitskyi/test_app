@@ -14,6 +14,7 @@ class Post extends Model
         'status',
         'title',
         'description',
+        'publish_date'
     ];
 
     /**

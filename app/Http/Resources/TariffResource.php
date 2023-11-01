@@ -3,11 +3,10 @@
 namespace App\Http\Resources;
 
 use App\Enums\Statuses;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class PostResource extends JsonResource
+class TariffResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -18,12 +17,10 @@ class PostResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'title' => $this->title ?? "",
+            'title' => $this->title,
             'status' => Statuses::fromValue($this->status),
-            'description' => $this->description ?? "",
-            'authorId' => $this->author ? $this->author->id : "",
-            'author' => $this->author ? $this->author->full_name : "",
-            'publishDate' => $this->publish_date ? Carbon::create($this->publish_date)->format('d.m.Y') : ""
+            'posts_count' => $this->posts_count,
+            'price' => $this->price,
         ];
     }
 }
